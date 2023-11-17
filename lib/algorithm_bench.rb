@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 module AlgorithmBench
-  def reg_iter(message)
+  def reg_iter(message = nil)
     increase_counter
-    puts message
+    puts message if message
   end
 
-  def reg_sub_iter(message)
+  def reg_sub_iter(message = nil)
     increase_sub_counter
-    puts message
+    puts message if message
   end
 
-  def allocate_in_array(arr, idx, value)
-    arr[idx] = value
-
+  def reg_alloc(count = 1, message = nil)
     increase_allocations
+    puts message if message
   end
 
   def stats
