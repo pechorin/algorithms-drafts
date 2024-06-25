@@ -6,8 +6,6 @@ class CoctailSort
   include AlgorithmBench
 
   def call(arr)
-    puts "-> #{arr.inspect}"
-
     lp = 0 # left pointer
     rp = arr.length # right pointer
 
