@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/algorithm_bench'
-
 class CoctailSort
-  include AlgorithmBench
 
   def call(arr)
     lp = 0 # left pointer
@@ -17,10 +14,8 @@ class CoctailSort
         v, v2 = arr[n], arr[n + 1]
         break if v2 .nil?
 
-        reg_alloc(2)
         arr[n], arr[n + 1] = v2, v if v > v2
         n += 1
-        reg_sub_iter
       end
 
       rp -= 1
@@ -30,17 +25,13 @@ class CoctailSort
         v, v2 = arr[n], arr[n - 1]
         break if v2.nil?
 
-        reg_alloc(2)
         arr[n], arr[n - 1] = v2, v if v < v2
         n -= 1
-        reg_sub_iter
       end
 
       lp += 1
 
       dir = dir == :right ? :left : :right
-
-      reg_iter
 
       if lp + 1 == rp
         break
