@@ -1,26 +1,4 @@
-=begin
-
-   a = 3,2,1
-
-   i1: 2,3,1  2,1,3
-
-   i2: 1,2,3
-
-   --
-
-   a = 4,3,8,1,2
-
-   (0 .. a.len - 1)
-
-   i1: 3,4,8,1,2   3,4,1,8,2   3,4,1,2,8
-
-   (0 .. a.len - 1 - (iter count))
-
-   i2:  3,1,4,2,8  3,1,2,4,8
-
-   i3: 1,3,2,4,8   1,2,3,4,8
-
-=end
+# frozen_string_literal: true
 
 def bubble_sort(x)
   x.size.times do |g|
@@ -41,5 +19,5 @@ def bubble_sort(x)
   x
 end
 
-x = [4,3,8,1,2,5,33,88,11,2]
+x = [4, 3, 8, 1, 2, 5, 33, 88, 11, 2]
 puts bubble_sort(x).inspect

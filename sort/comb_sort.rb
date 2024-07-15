@@ -2,13 +2,14 @@
 
 require './lib/algorithm_tracker'
 
+# rubocop:disable Metric/MethodLength
 module Sort
   # https://en.wikipedia.org/wiki/Comb_sort
   class Comb
     using AlgorithmTracker
 
     def call(list)
-      0.upto(list.size - 1) do |i|
+      0.upto(list.size - 1) do |_|
         dist = list.size - 1
 
         while dist >= 1
@@ -19,14 +20,18 @@ module Sort
             next if v2.nil?
 
             list[i2 + dist], list[i2] = list[i2], list[i2 + dist] if v > v2
-            dist = dist / 1.25
+            dist /= 1.25
           end
         end
       end
 
       puts "Comb result: #{list.inspect}"
-      puts "Stats: #{$stats}"
+      puts "Stats: #{AlgorithmTracker.stats}"
 
+      bubble_sort(list)
+    end
+
+    def bubble_sort(list)
       0.upto(list.size - 1) do |i|
         0.upto(list.size - i) do |i2|
           next if list[i2 + 1].nil?
@@ -39,6 +44,7 @@ module Sort
     end
   end
 end
+# rubocop:enable Metric/MethodLength
 
 [
   # [30, 11, 3, 2, 1, 109, 90, 4, 5, 10],
@@ -48,4 +54,4 @@ end
   puts "Sort result for: #{list}\n#{Sort::Comb.new.call(list)}"
 end
 
-puts "Stats: #{$stats}"
+puts "Stats: #{AlgorithmTracker.stats}"

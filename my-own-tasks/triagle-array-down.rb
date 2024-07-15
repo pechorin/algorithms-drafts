@@ -1,13 +1,11 @@
-=begin
-
-   L = 5
-
-   * * * * *
-   - * * * -
-   - - * - -
-   - - - - -
-
-=end
+#
+#    L = 5
+#
+#    * * * * *
+#    - * * * -
+#    - - * - -
+#    - - - - -
+#
 
 l = 5
 a = -1
@@ -15,15 +13,15 @@ b = l
 
 r = []
 
-l.times do |i|
+l.times do |_i|
   r_line = []
 
   l.times do |j|
-    if j <= a || j >= b
-      r_line << '-'
-    else
-      r_line << '*'
-    end
+    r_line << if j <= a || j >= b
+                '-'
+              else
+                '*'
+              end
   end
 
   r << r_line

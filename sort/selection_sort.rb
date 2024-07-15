@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def selection_sort(x)
   x.size.times do |i|
     min = x[i]
@@ -23,6 +25,6 @@ def selection_sort(x)
   x
 end
 
-x = [13,5,43,2,3,3,2,4,10,6,1]
+x = [13, 5, 43, 2, 3, 3, 2, 4, 10, 6, 1]
 
 puts selection_sort(x).inspect

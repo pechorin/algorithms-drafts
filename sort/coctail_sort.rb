@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CoctailSort
-
   def call(arr)
     lp = 0 # left pointer
     rp = arr.length # right pointer
@@ -11,10 +10,14 @@ class CoctailSort
     while lp != rp
       n = lp
       while n < arr.length - (arr.length - rp)
-        v, v2 = arr[n], arr[n + 1]
-        break if v2 .nil?
+        v = arr[n]
+        v2 = arr[n + 1]
+        break if v2.nil?
 
-        arr[n], arr[n + 1] = v2, v if v > v2
+        if v > v2
+          arr[n] = v2
+          arr[n + 1] = v
+        end
         n += 1
       end
 
@@ -22,10 +25,14 @@ class CoctailSort
 
       n = arr.length - (arr.length - rp) - 1
       while n > lp
-        v, v2 = arr[n], arr[n - 1]
+        v = arr[n]
+        v2 = arr[n - 1]
         break if v2.nil?
 
-        arr[n], arr[n - 1] = v2, v if v < v2
+        if v < v2
+          arr[n] = v2
+          arr[n - 1] = v
+        end
         n -= 1
       end
 
@@ -33,20 +40,17 @@ class CoctailSort
 
       dir = dir == :right ? :left : :right
 
-      if lp + 1 == rp
-        break
-      end
+      break if lp + 1 == rp
     end
 
-    puts stats.inspect
     puts "\n"
 
     arr
   end
 end
 
-puts CoctailSort.new.call([1,2,3,4]).inspect
-puts CoctailSort.new.call([1,2,3,2]).inspect
-puts CoctailSort.new.call([5,4,3,2,1]).inspect
-puts CoctailSort.new.call([12,20,4,3,2,1,100,120,18,3,45]).inspect
-puts CoctailSort.new.call([12,20,4,3,2,1,100,120,18,3,45,67,54,321,12,1]).inspect
+puts CoctailSort.new.call([1, 2, 3, 4]).inspect
+puts CoctailSort.new.call([1, 2, 3, 2]).inspect
+puts CoctailSort.new.call([5, 4, 3, 2, 1]).inspect
+puts CoctailSort.new.call([12, 20, 4, 3, 2, 1, 100, 120, 18, 3, 45]).inspect
+puts CoctailSort.new.call([12, 20, 4, 3, 2, 1, 100, 120, 18, 3, 45, 67, 54, 321, 12, 1]).inspect

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sort
   class Bubble
     def call(list)

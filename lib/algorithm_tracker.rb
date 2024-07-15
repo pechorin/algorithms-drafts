@@ -1,15 +1,34 @@
+# frozen_string_literal: true
+
 module AlgorithmTracker
   class << self
     def track_iteration
-      $stats ||= {}
-      $stats[:iterations] ||= 0
-      $stats[:iterations]  += 1
+      @stats ||= {}
+      @stats[:iterations] ||= 0
+      @stats[:iterations]  += 1
     end
 
     def track_allocation
-      $stats ||= {}
-      $stats[:allocations] ||= 0
-      $stats[:allocations]  += 1
+      @stats ||= {}
+      @stats[:allocations] ||= 0
+      @stats[:allocations]  += 1
+    end
+
+    def track_compare
+      @stats ||= {}
+      @stats[:compares] ||= 0
+      @stats[:compares]  += 1
+    end
+
+    def reset_tracker
+      @stats ||= {}
+      @stats[:allocations] = 0
+      @stats[:iterations]  = 0
+      @stats[:compares]    = 0
+    end
+
+    def stats
+      @stats || {}
     end
   end
 
@@ -19,6 +38,21 @@ module AlgorithmTracker
         AlgorithmTracker.track_iteration
         yield n
       end
+    end
+
+    def >(other)
+      AlgorithmTracker.track_compare
+      super
+    end
+
+    def <(other)
+      AlgorithmTracker.track_compare
+      super
+    end
+
+    def ==(other)
+      AlgorithmTracker.track_compare
+      super
     end
   end
 

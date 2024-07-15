@@ -31,8 +31,8 @@ module Search
 end
 
 test_data = {
-  [1,2,3,4,5] => (-1..6).to_a,
-  [1,2,3,4,5,10,20,30,45,77,78,89,91,92,93,100] => [100, 77, 78, -10, 45, 89],
+  [1, 2, 3, 4, 5] => (-1..6).to_a,
+  [1, 2, 3, 4, 5, 10, 20, 30, 45, 77, 78, 89, 91, 92, 93, 100] => [100, 77, 78, -10, 45, 89]
 }
 
 test_data.each do |list, lookup_values|
@@ -44,4 +44,3 @@ test_data.each do |list, lookup_values|
     puts "value: #{value} -> found at: #{r.inspect}"
   end
 end
-
