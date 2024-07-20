@@ -25,8 +25,8 @@ module Sort
         end
       end
 
-      puts "Comb result: #{list.inspect}"
-      puts "Stats: #{AlgorithmTracker.stats}"
+      # puts "Comb result: #{list.inspect}"
+      # puts "Stats: #{AlgorithmTracker.stats}"
 
       bubble_sort(list)
     end
@@ -45,13 +45,3 @@ module Sort
   end
 end
 # rubocop:enable Metric/MethodLength
-
-[
-  # [30, 11, 3, 2, 1, 109, 90, 4, 5, 10],
-  # [10, 20, 5, 4, 2, 10, 12, 10],
-  [10, 1, 2, 3]
-].each do |list|
-  puts "Sort result for: #{list}\n#{Sort::Comb.new.call(list)}"
-end
-
-puts "Stats: #{AlgorithmTracker.stats}"

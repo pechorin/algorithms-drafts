@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require './lib/algorithm_tracker'
+
 module Sort
   class Bubble
+    using AlgorithmTracker
+
     def call(list)
       0.upto(list.size - 1) do |n|
         0.upto(list.size - n) do |n2|
@@ -14,12 +18,4 @@ module Sort
       list
     end
   end
-end
-
-[
-  [3, 2, 1],
-  [10, 20, 5, 4, 2, 10, 12, 10],
-  [10, 1, 2, 3]
-].each do |list|
-  puts "Sort result for: #{list}\n#{Sort::Bubble.new.call(list)}"
 end
