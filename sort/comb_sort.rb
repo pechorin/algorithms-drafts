@@ -25,9 +25,6 @@ module Sort
         end
       end
 
-      # puts "Comb result: #{list.inspect}"
-      # puts "Stats: #{AlgorithmTracker.stats}"
-
       bubble_sort(list)
     end
 

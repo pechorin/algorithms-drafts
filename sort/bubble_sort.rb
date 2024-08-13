@@ -1,23 +1,44 @@
 # frozen_string_literal: true
 
-def bubble_sort(x)
-  x.size.times do |g|
-    (x.size - g).times do |i|
-      i2 = i + 1
-      next if x[i2].nil?
+require './lib/algorithm_tracker'
 
-      v_i = x[i]
-      v_i2 = x[i2]
+module Sort
+  class Bubble
+    using AlgorithmTracker
 
-      if v_i > v_i2
-        x[i] = v_i2
-        x[i2] = v_i
+    def call(list)
+      0.upto(list.size - 1) do |n|
+        0.upto(list.size - n) do |n2|
+          next if list[n2 + 1].nil?
+
+          list[n2], list[n2 + 1] = list[n2 + 1], list[n2] if list[n2] > list[n2 + 1]
+        end
       end
+
+      list
     end
   end
 
-  x
-end
+  class Bubble2
+    using AlgorithmTracker
 
-x = [4, 3, 8, 1, 2, 5, 33, 88, 11, 2]
-puts bubble_sort(x).inspect
+    def call(x)
+      x.size.times do |g|
+        (x.size - g).times do |i|
+          i2 = i + 1
+          next if x[i2].nil?
+
+          v_i = x[i]
+          v_i2 = x[i2]
+
+          if v_i > v_i2
+            x[i] = v_i2
+            x[i2] = v_i
+          end
+        end
+      end
+
+      x
+    end
+  end
+end
