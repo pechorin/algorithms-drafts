@@ -7,6 +7,8 @@ module Sort
     using AlgorithmTracker
 
     def call(x)
+      return x if x.size == 1
+
       1.upto(x.size - 1) do |n|
         n.downto(1) do |i|
           break if x[i - 1] <= x[i]
@@ -19,12 +21,25 @@ module Sort
     end
   end
 
-  # class Insertion2
-  #   using AlgorithmTracker
+  class Insertion2
+    using AlgorithmTracker
 
-  #   def call(x)
-  #     x
-  #   end
-  # end
+    def call(x)
+      return x if x.size == 1
+
+      i = 1
+      while i < x.size
+        j = i
+        while j > 0 && x[j] > x[j - 1]
+          x[j - 1], x[j] = x[j], x[j - 1]
+
+          j -= 1
+        end
+
+        i += 1
+      end
+
+      x
+    end
+  end
 end
-
