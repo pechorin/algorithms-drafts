@@ -7,6 +7,8 @@ module Sort
     using AlgorithmTracker
 
     def call(list)
+      return list if list.size < 2
+
       0.upto(list.size - 1) do |n|
         0.upto(list.size - n) do |n2|
           next if list[n2 + 1].nil?
@@ -23,6 +25,8 @@ module Sort
     using AlgorithmTracker
 
     def call(x)
+      return x if x.size < 2
+
       x.size.times do |g|
         (x.size - g).times do |i|
           i2 = i + 1

@@ -7,6 +7,8 @@ module Sort
     using AlgorithmTracker
 
     def call(x)
+      return x if x.size < 2
+
       x.size.times do |i|
         min = x[i]
         min_idx = i

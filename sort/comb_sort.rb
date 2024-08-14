@@ -9,6 +9,8 @@ module Sort
     using AlgorithmTracker
 
     def call(list)
+      return list if list.size < 2
+
       0.upto(list.size - 1) do |_|
         dist = list.size - 1
 
@@ -29,6 +31,8 @@ module Sort
     end
 
     def bubble_sort(list)
+      return list if list.size < 2
+
       0.upto(list.size - 1) do |i|
         0.upto(list.size - i) do |i2|
           next if list[i2 + 1].nil?

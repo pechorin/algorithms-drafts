@@ -7,6 +7,8 @@ module Sort
     using AlgorithmTracker
 
     def call(arr)
+      return arr if arr.size < 2
+
       lp = 0 # left pointer
       rp = arr.length # right pointer
 

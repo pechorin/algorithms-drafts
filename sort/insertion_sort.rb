@@ -7,7 +7,7 @@ module Sort
     using AlgorithmTracker
 
     def call(x)
-      return x if x.size == 1
+      return x if x.size < 2
 
       1.upto(x.size - 1) do |n|
         n.downto(1) do |i|
@@ -25,7 +25,7 @@ module Sort
     using AlgorithmTracker
 
     def call(x)
-      return x if x.size == 1
+      return x if x.size < 2
 
       i = 1
       while i < x.size
