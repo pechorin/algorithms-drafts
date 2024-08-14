@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# TODO: track loops for while method
+# TODO: add more huge datasets
 
 require './sort/bubble'
 require './sort/comb'

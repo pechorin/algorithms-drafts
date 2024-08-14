@@ -22,15 +22,18 @@ module Sort
   end
 
   class Insertion2
-    using AlgorithmTracker
+    T = AlgorithmTracker
+    using T
 
     def call(x)
       return x if x.size < 2
 
       i = 1
       while i < x.size
+        T.track_iteration
         j = i
         while j > 0 && x[j] > x[j - 1]
+          T.track_iteration
           x[j - 1], x[j] = x[j], x[j - 1]
 
           j -= 1

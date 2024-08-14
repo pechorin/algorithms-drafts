@@ -6,7 +6,8 @@ require './lib/algorithm_tracker'
 module Sort
   # https://en.wikipedia.org/wiki/Comb_sort
   class Comb
-    using AlgorithmTracker
+    T = AlgorithmTracker
+    using T
 
     def call(list)
       return list if list.size < 2
@@ -15,6 +16,7 @@ module Sort
         dist = list.size - 1
 
         while dist >= 1
+          T.track_iteration
           0.upto(list.size - 1) do |i2|
             v  = list[i2]
             v2 = list[i2 + dist]

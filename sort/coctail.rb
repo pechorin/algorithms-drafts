@@ -4,7 +4,8 @@ require './lib/algorithm_tracker'
 
 module Sort
   class Coctail
-    using AlgorithmTracker
+    T = AlgorithmTracker
+    using T
 
     def call(arr)
       return arr if arr.size < 2
@@ -15,8 +16,10 @@ module Sort
       dir = :right
 
       while lp != rp
+        T.track_iteration
         n = lp
         while n < arr.length - (arr.length - rp)
+          T.track_iteration
           v = arr[n]
           v2 = arr[n + 1]
           break if v2.nil?
@@ -32,6 +35,7 @@ module Sort
 
         n = arr.length - (arr.length - rp) - 1
         while n > lp
+          T.track_iteration
           v = arr[n]
           v2 = arr[n - 1]
           break if v2.nil?

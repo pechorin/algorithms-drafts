@@ -4,7 +4,8 @@ require './lib/algorithm_tracker'
 
 module Sort
   class Selection
-    using AlgorithmTracker
+    T = AlgorithmTracker
+    using T
 
     def call(x)
       return x if x.size < 2
@@ -15,6 +16,7 @@ module Sort
 
         n = i
         while n != x.size
+          T.track_iteration
           a = x[n]
 
           if a < min
