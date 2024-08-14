@@ -6,3 +6,10 @@ This is for write-only purposes, so:
 - no ruby style guide
 
 This is completely about my learning way, nice looking algorithms implementations can be found on internet (not in this repo :) )
+
+
+---
+
+## TODO
+- [ ] final stats table
+- [ ] memory usage stats
