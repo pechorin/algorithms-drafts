@@ -7,11 +7,11 @@ require './sort/comb'
 require './sort/insertion'
 require './sort/shell'
 require './sort/selection'
+require './sort/merge'
 
 BASE_DATA_SET = [
-  [30, 11, 3, 2, 1, 109, 90, 4, 5, 10],
-  [10, 20, 5, 4, 2, 10, 12, 10],
-  [10, 1, 2, 3]
+  10.times.map { rand(1..10) },
+  100.times.map { rand(1..100) },
 ]
 
 ALGORITHMS = {
@@ -21,17 +21,22 @@ ALGORITHMS = {
   insertion: {
     classes: [Sort::Insertion, Sort::Insertion2],
   },
+  selection: {
+    classes: [Sort::Selection],
+  },
   shell: {
     classes: [Sort::Shell],
   },
-  selection: {
-    classes: [Sort::Selection],
+  merge: {
+    classes: [Sort::Merge],
   },
 
 }.freeze
 
+# TODO: add sort result check method
+
 ALGORITHMS.each do |alg_name, alg_data|
-  puts "--- --- --- #{alg_name} --- --- ---\n\n"
+  puts "\n--- --- --- #{alg_name} --- --- ---\n"
 
   (alg_data[:data] || BASE_DATA_SET).each do |data|
     alg_data[:classes].each do |implementation|
@@ -39,9 +44,7 @@ ALGORITHMS.each do |alg_name, alg_data|
 
       result = implementation.new.call(data.clone)
 
-      puts "#{implementation.name}: #{data} => #{result}"
-      puts AlgorithmTracker.stats
-      puts "\n\n"
+      puts "#{implementation.name}: dataset size: #{data.size} -> #{AlgorithmTracker.stats.inspect}\n"
     end
   end
 end

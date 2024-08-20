@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-# 3 2 1
-#
-# 1. mp = 1
-#    0-0 .. 1 .. 2-2
-#
-  # 2.
+require './lib/algorithm_tracker'
 
 module Sort
   class Merge
+    using AlgorithmTracker
+
     def call(list)
       return list if list.size < 2
 
@@ -18,22 +15,37 @@ module Sort
     private
 
     def merge_sort(list, lp, rp)
-      # return [list[lp]] if (rp - lp).zero?
+      return [list[lp]] if lp == rp
 
-      mp    = (rp - lp + 1) / 2
-      return [list[lp]] if mp < 2
+      # TODO: вот это вычесление как-то проще может получить можно?
+      mp = lp + (rp - lp + 1) / 2
 
-      puts "[l:#{lp},r:#{rp},m:#{mp}] m(#{lp} - #{mp}) m(#{mp + 1} - #{rp})"
+      left  = merge_sort(list, lp, mp - 1)
+      right = merge_sort(list, mp, rp)
 
-      left  = merge_sort(list, lp, mp)
-      right = merge_sort(list, mp + 1, rp)
+      merge(left, right)
+    end
 
+    def merge(left, right)
+      list = []
 
-      return [left, right]
+      while left.any? && right.any?
+        if left[0] < right[0]
+          list << left.shift
+        elsif left[0] > right[0]
+          list << right.shift
+        else # оба равны, а это реальная ситуацция?
+          right.shift
+          list << left.shift
+        end
+
+        AlgorithmTracker.track_iteration
+      end
+
+      list.append(*left) if left.any?
+      list.append(*right) if right.any?
+
+      list
     end
   end
 end
-
-# puts Sort::Merge.new.call([10,9,8,7,4,3,20,10,30,20]).inspect
-# puts Sort::Merge.new.call([4,3,2,1]).inspect
-puts Sort::Merge.new.call([3,2,1]).inspect
