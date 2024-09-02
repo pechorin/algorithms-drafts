@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require 'bundler/setup'
+
 # TODO: add more huge datasets
+# TODO: add sort result check method
 
 require './sort/bubble'
 require './sort/comb'
@@ -30,10 +33,7 @@ ALGORITHMS = {
   merge: {
     classes: [Sort::Merge],
   },
-
 }.freeze
-
-# TODO: add sort result check method
 
 ALGORITHMS.each do |alg_name, alg_data|
   puts "\n--- --- --- #{alg_name} --- --- ---\n"
@@ -42,9 +42,22 @@ ALGORITHMS.each do |alg_name, alg_data|
     alg_data[:classes].each do |implementation|
       AlgorithmTracker.reset_tracker
 
-      result = implementation.new.call(data.clone)
+      result = nil
 
-      puts "#{implementation.name}: dataset size: #{data.size} -> #{AlgorithmTracker.stats.inspect}\n"
+      stats = AlgorithmTracker.track_allocations do
+        result = implementation.new.call(data.clone)
+      end
+
+      allocation_stats = stats.allocations \
+        .group_by(:class)
+        .sort_by_count
+        .to_a
+        .select { |cl, _| cl.to_s == '[Array]' || cl.to_s == '[String]' || cl.to_s == '[Range]' }
+        .map { |cl, d| "#{cl}: #{d.count}" }
+        .join(', ')
+
+
+      puts "#{implementation.name}: dataset size: #{data.size} -> #{AlgorithmTracker.stats.inspect} -> #{allocation_stats}\n"
     end
   end
 end
