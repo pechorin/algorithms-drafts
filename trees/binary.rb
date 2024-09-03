@@ -38,16 +38,26 @@ module Trees
         return tree
       end
     end
+
+    def traverse_asc(node = root)
+      return unless node
+
+      [traverse_asc(node.left), node.value, traverse_asc(node.right)].flatten.compact
+    end
   end
 end
 
-tree = Trees::Binary.new
-# tree.append(1)
-# tree.append(2)
+# tree = Trees::Binary.new
+
+# tree.append(5)
 # tree.append(3)
+# tree.append(10)
+# tree.append(1)
+# tree.append(4)
+# tree.append(7)
+# tree.append(12)
+# tree.append(11)
+# tree.append(18)
 
-tree.append(3)
-tree.append(2)
-tree.append(1)
 
-puts(tree.inspect)
+# puts(tree.traverse_asc.inspect)

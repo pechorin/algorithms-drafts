@@ -3,18 +3,21 @@
 require 'bundler/setup'
 
 # TODO: add more huge datasets
-# TODO: add sort result check method
 
+require './helpers'
 require './sort/bubble'
 require './sort/comb'
 require './sort/insertion'
 require './sort/shell'
 require './sort/selection'
 require './sort/merge'
+require './sort/quick'
+require './sort/heap'
 
 BASE_DATA_SET = [
   10.times.map { rand(1..10) },
   100.times.map { rand(1..100) },
+  1000.times.map { rand(1..1000) },
 ]
 
 ALGORITHMS = {
@@ -33,6 +36,12 @@ ALGORITHMS = {
   merge: {
     classes: [Sort::Merge],
   },
+  quick: {
+    classes: [Sort::QuickNonEffective],
+  },
+  heap: {
+    classes: [Sort::Heap],
+  }
 }.freeze
 
 ALGORITHMS.each do |alg_name, alg_data|
@@ -45,7 +54,10 @@ ALGORITHMS.each do |alg_name, alg_data|
       result = nil
 
       stats = AlgorithmTracker.track_allocations do
-        result = implementation.new.call(data.clone)
+        result    = implementation.new.call(data.clone)
+        unless check_sorting(result)
+          raise "Sorting failed for #{implementation}, result: #{result.inspect}"
+        end
       end
 
       allocation_stats = stats.allocations \
@@ -53,11 +65,13 @@ ALGORITHMS.each do |alg_name, alg_data|
         .sort_by_count
         .to_a
         .select { |cl, _| cl.to_s == '[Array]' || cl.to_s == '[String]' || cl.to_s == '[Range]' }
-        .map { |cl, d| "#{cl}: #{d.count}" }
-        .join(', ')
+        .map { |cl, d| [cl, d.count] }
+        .to_h
 
+      algo_stats = AlgorithmTracker.stats
+      algo_stats.merge!(allocations: allocation_stats)
 
-      puts "#{implementation.name}: dataset size: #{data.size} -> #{AlgorithmTracker.stats.inspect} -> #{allocation_stats}\n"
+      puts "#{implementation.name}: dataset size: #{data.size} -> #{algo_stats.inspect}\n"
     end
   end
 end
