@@ -3,6 +3,8 @@
 require 'bundler/setup'
 
 # TODO: add more huge datasets
+# TODO: track time
+# TODO: stats is broken
 
 require './helpers'
 require './sort/bubble'
@@ -37,7 +39,7 @@ ALGORITHMS = {
     classes: [Sort::Merge],
   },
   quick: {
-    classes: [Sort::QuickNonEffective],
+    classes: [Sort::QuickNonEffective, Sort::QuickLomuto],
   },
   heap: {
     classes: [Sort::Heap],
