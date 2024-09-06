@@ -9,6 +9,8 @@ module Sort
     def call(list)
       return list if list.size < 2
 
+      AlgorithmTracker.track_iteration
+
       ref   = list.first
       left  = list.select { |e| e < ref }
       right = list.select { |e| e > ref }
@@ -29,6 +31,8 @@ module Sort
 
     def sort(list, lo, hi)
       return unless lo < hi
+
+      AlgorithmTracker.track_iteration
 
       pivot = partition(list, lo, hi)
 

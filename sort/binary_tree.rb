@@ -4,7 +4,7 @@ require './lib/algorithm_tracker'
 require './trees/binary'
 
 module Sort
-  class Heap
+  class BinaryTree
     using AlgorithmTracker
 
     def call(list)

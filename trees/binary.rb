@@ -2,6 +2,8 @@
 
 module Trees
   class Binary
+    using AlgorithmTracker
+
     attr_accessor :tree
     alias root tree
 
@@ -42,6 +44,8 @@ module Trees
     def traverse_asc(node = root)
       return unless node
 
+      AlgorithmTracker.track_iteration
+
       [traverse_asc(node.left), node.value, traverse_asc(node.right)].flatten.compact
     end
   end
@@ -58,6 +62,5 @@ end
 # tree.append(12)
 # tree.append(11)
 # tree.append(18)
-
 
 # puts(tree.traverse_asc.inspect)
