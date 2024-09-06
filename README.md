@@ -16,47 +16,35 @@
 
 ## Текущие результаты реализаций алгоритмов сортировок
 
-TODO: use table mode
-
-```
---- --- --- bubble --- --- ---
-Sort::Bubble: dataset size: 10 -> {:iterations=>75, :compares=>63, :allocations=>{[Array]=>18, [Range]=>11}}
-Sort::Comb: dataset size: 10 -> {:iterations=>305, :compares=>254, :allocations=>{[Range]=>32, [Array]=>4}}
-Sort::Bubble: dataset size: 100 -> {:iterations=>5250, :compares=>5148, :allocations=>{[Array]=>2395, [Range]=>101}}
-Sort::Comb: dataset size: 100 -> {:iterations=>15450, :compares=>15149, :allocations=>{[Array]=>2198, [Range]=>202}}
-Sort::Bubble: dataset size: 1000 -> {:iterations=>502500, :compares=>501498, :allocations=>{[Array]=>246257, [Range]=>1001}}
-Sort::Comb: dataset size: 1000 -> {:iterations=>1504500, :compares=>1501499, :allocations=>{[Array]=>244726, [Range]=>2002}}
-
---- --- --- insertion --- --- ---
-Sort::Insertion: dataset size: 10 -> {:iterations=>9, :compares=>1, :allocations=>{[Array]=>18, [Range]=>1}}
-Sort::Insertion2: dataset size: 10 -> {:iterations=>34, :compares=>76, :allocations=>{[Array]=>1}}
-Sort::Insertion: dataset size: 100 -> {:iterations=>99, :compares=>1, :allocations=>{[Array]=>2395, [Range]=>1}}
-Sort::Insertion2: dataset size: 100 -> {:iterations=>2594, :compares=>5285, :allocations=>{[Array]=>1}}
-Sort::Insertion: dataset size: 1000 -> {:iterations=>999, :compares=>1, :allocations=>{[Array]=>246257, [Range]=>1}}
-Sort::Insertion2: dataset size: 1000 -> {:iterations=>253782, :compares=>508560, :allocations=>{[Array]=>1}}
-
---- --- --- selection --- --- ---
-Sort::Selection: dataset size: 10 -> {:iterations=>55, :compares=>56, :allocations=>{[Array]=>1}}
-Sort::Selection: dataset size: 100 -> {:iterations=>5050, :compares=>5051, :allocations=>{[Array]=>1}}
-Sort::Selection: dataset size: 1000 -> {:iterations=>500500, :compares=>500501, :allocations=>{[Array]=>1}}
-
---- --- --- shell --- --- ---
-Sort::Shell: dataset size: 10 -> {:iterations=>34, :compares=>59, :allocations=>{[Array]=>1}}
-Sort::Shell: dataset size: 100 -> {:iterations=>982, :compares=>1443, :allocations=>{[Array]=>1}}
-Sort::Shell: dataset size: 1000 -> {:iterations=>15122, :compares=>22628, :allocations=>{[Array]=>1}}
-
---- --- --- merge --- --- ---
-Sort::Merge: dataset size: 10 -> {:iterations=>20, :compares=>51, :allocations=>{[Array]=>20}}
-Sort::Merge: dataset size: 100 -> {:iterations=>453, :compares=>912, :allocations=>{[Array]=>200}}
-Sort::Merge: dataset size: 1000 -> {:iterations=>7929, :compares=>14117, :allocations=>{[Array]=>2000}}
-
---- --- --- quick --- --- ---
-Sort::QuickNonEffective: dataset size: 10 -> {:iterations=>0, :compares=>63, :allocations=>{[Array]=>21}}
-Sort::QuickNonEffective: dataset size: 100 -> {:iterations=>0, :compares=>1145, :allocations=>{[Array]=>181}}
-Sort::QuickNonEffective: dataset size: 1000 -> {:iterations=>0, :compares=>22459, :allocations=>{[Array]=>1969}}
-
---- --- --- heap --- --- ---
-Sort::Heap: dataset size: 10 -> {:iterations=>0, :compares=>0, :allocations=>{[Array]=>22}}
-Sort::Heap: dataset size: 100 -> {:iterations=>0, :compares=>0, :allocations=>{[Array]=>172}}
-Sort::Heap: dataset size: 1000 -> {:iterations=>0, :compares=>0, :allocations=>{[Array]=>1951}}
-```
+|algorithm|implementation|dataset|iters|compares|allocs|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|bubble|Sort::Bubble|rand 10|75|63|{[Array]=>19, [Range]=>11}|
+|bubble|Sort::Comb|rand 10|305|254|{[Range]=>32, [Array]=>12}|
+|bubble|Sort::Bubble|rand 100|5250|5148|{[Array]=>2244, [Range]=>101}|
+|bubble|Sort::Comb|rand 100|15450|15149|{[Array]=>2146, [Range]=>202}|
+|bubble|Sort::Bubble|rand 1000|502500|501498|{[Array]=>249311, [Range]=>1001}|
+|bubble|Sort::Comb|rand 1000|1504500|1501499|{[Array]=>248407, [Range]=>2002}|
+|insertion|Sort::Insertion|rand 10|9|1|{[Array]=>19, [Range]=>1}|
+|insertion|Sort::Insertion2|rand 10|29|68|{[Array]=>1}|
+|insertion|Sort::Insertion|rand 100|99|1|{[Array]=>2244, [Range]=>1}|
+|insertion|Sort::Insertion2|rand 100|2761|5619|{[Array]=>1}|
+|insertion|Sort::Insertion|rand 1000|999|1|{[Array]=>249311, [Range]=>1}|
+|insertion|Sort::Insertion2|rand 1000|250687|502372|{[Array]=>1}|
+|selection|Sort::Selection|rand 10|55|56|{[Array]=>1}|
+|selection|Sort::Selection|rand 100|5050|5051|{[Array]=>1}|
+|selection|Sort::Selection|rand 1000|500500|500501|{[Array]=>1}|
+|shell|Sort::Shell|rand 10|35|59|{[Array]=>1}|
+|shell|Sort::Shell|rand 100|860|1326|{[Array]=>1}|
+|shell|Sort::Shell|rand 1000|16549|24050|{[Array]=>1}|
+|merge|Sort::Merge|rand 10|17|48|{[Array]=>20}|
+|merge|Sort::Merge|rand 100|478|948|{[Array]=>200}|
+|merge|Sort::Merge|rand 1000|7908|14115|{[Array]=>2000}|
+|quick|Sort::QuickNonEffective|rand 10|0|53|{[Array]=>17}|
+|quick|Sort::QuickLomuto|rand 10|0|127|{[Array]=>1}|
+|quick|Sort::QuickNonEffective|rand 100|0|1341|{[Array]=>197}|
+|quick|Sort::QuickLomuto|rand 100|0|10297|{[Array]=>1}|
+|quick|Sort::QuickNonEffective|rand 1000|0|20889|{[Array]=>1933}|
+|quick|Sort::QuickLomuto|rand 1000|0|1002997|{[Array]=>1}|
+|heap|Sort::Heap|rand 10|0|0|{[Array]=>19}|
+|heap|Sort::Heap|rand 100|0|0|{[Array]=>199}|
+|heap|Sort::Heap|rand 1000|0|0|{[Array]=>1894}|

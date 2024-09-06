@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+require 'markdown-tables'
 
 # TODO: add more huge datasets
 # TODO: track time
@@ -46,9 +47,10 @@ ALGORITHMS = {
   }
 }.freeze
 
-ALGORITHMS.each do |alg_name, alg_data|
-  puts "\n--- --- --- #{alg_name} --- --- ---\n"
+table_labels = ['algorithm', 'implementation', 'dataset', 'iters', 'compares', 'allocs']
+table_data   = []
 
+ALGORITHMS.each do |alg_name, alg_data|
   (alg_data[:data] || BASE_DATA_SET).each do |data|
     alg_data[:classes].each do |implementation|
       AlgorithmTracker.reset_tracker
@@ -56,7 +58,8 @@ ALGORITHMS.each do |alg_name, alg_data|
       result = nil
 
       stats = AlgorithmTracker.track_allocations do
-        result    = implementation.new.call(data.clone)
+        result = implementation.new.call(data.clone)
+
         unless check_sorting(result)
           raise "Sorting failed for #{implementation}, result: #{result.inspect}"
         end
@@ -73,7 +76,16 @@ ALGORITHMS.each do |alg_name, alg_data|
       algo_stats = AlgorithmTracker.stats
       algo_stats.merge!(allocations: allocation_stats)
 
-      puts "#{implementation.name}: dataset size: #{data.size} -> #{algo_stats.inspect}\n"
+      table_data << [
+        alg_name,
+        implementation.name.to_s,
+        "rand #{data.size}",
+        algo_stats[:iterations],
+        algo_stats[:compares],
+        algo_stats[:allocations],
+      ]
     end
   end
 end
+
+puts MarkdownTables.make_table(table_labels, table_data, is_rows: true)
