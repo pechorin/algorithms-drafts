@@ -1,5 +1,4 @@
 def dragons_power(total_power)
-  total_power   = total_power.to_f
   last_power    = total_power.to_f
   current_heads = 2
   result        = []
