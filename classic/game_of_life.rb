@@ -4,6 +4,9 @@
 class GameOfLife
   attr_reader :board, :cell_symbol, :board_x, :board_y
 
+  CONTINUE_LIFE_MARKER = [2, 3]
+  NEW_LIFE_MARKER = 3
+
   def initialize(x = 10, y = 10, cell_symbol = 'X')
     @cell_symbol = cell_symbol
     @board_x     = x
@@ -65,7 +68,7 @@ class GameOfLife
         # Остается ли клетка жить или умирает?
         alive_count = 0
         neighbors.each_value { |data| alive_count += 1 if data[1] }
-        new_state[line_idx][cell_idx] = board[line_idx][cell_idx] if alive_count >= 2
+        new_state[line_idx][cell_idx] = board[line_idx][cell_idx] if CONTINUE_LIFE_MARKER.include?(alive_count)
 
         # Зарождаем новую жизнь
         # (пока не оптимальный вариант)
@@ -73,9 +76,9 @@ class GameOfLife
           next if data[1] # если уже живая клетка, то пропускаем
 
           dead_cell_neigbors = cell_neighbors(data[0][0], data[0][1])
-          alive_count = 0
-          dead_cell_neigbors.each_value { |neigbor_data| alive_count += 1 if neigbor_data[1] }
-          new_state[data[0][0]][data[0][1]] = cell_symbol if alive_count >= 3
+          alive_for_dead_count = 0
+          dead_cell_neigbors.each_value { |neigbor_data| alive_for_dead_count += 1 if neigbor_data[1] }
+          new_state[data[0][0]][data[0][1]] = cell_symbol if alive_for_dead_count == NEW_LIFE_MARKER
         end
       end
     end
@@ -97,7 +100,7 @@ class GameOfLife
   end
 
   def clear_screen
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
   end
 
   def left_neigbor(line_idx, cell_idx)
@@ -163,8 +166,8 @@ class GameOfLife
 end
 # rubocop:enable Metrics/ClassLength
 
-GameOfLife.new(25, 25).run(loops: 10, init_cells: [
+GameOfLife.new(25, 25).run(loops: 1000, init_cells: [
   [5, 5], [6, 5], [6, 6], [7, 4], [7, 5]
   # [3, 4], [3, 5], [4, 3], [4, 6], [5, 4], [5, 5]
-  # [3, 4], [4, 5], [3, 6]
+  # [3, 4], [4, 5], [3, 6], [2, 5]
 ])
